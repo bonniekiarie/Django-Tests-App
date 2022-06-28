@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock title %}
+{% block content %}
+<div style = "text-align: left;">
+          
+  {% if user.is_authenticated %}
+  <div class = "container">
+  </br></br></br></br>
+    <h3 style = "text-align: center;">Select test from the following topics</h3>
+
+    <form method = "post">
+      {% csrf_token %}
+      <div>
+      {% for test in tests %}
+      {% comment %} <div class = "container"> {% endcomment %}
+      {% comment %} {{question.0}} {% endcomment %}
+      </br>
+      </br>
+    <label class="blue-text text-darken-2">
+    <input type = "radio" name = " Tests" style = "text-align: left;" value = "{{ forloop.counter0 }}">
+    <span>{{ test.1 }}</span>
+  </label>
+  {% endfor %}
+  </br>
+  </br>
+      <button class="waves-effect waves-light black btn" type = "submit" style = "offset:50px;">Submit</button>
+    </form>
+    </br>
+    </br>
+    {% else %}
+    <div class = "container">
+      <h3  class = "black-text center">Welcome to,</h3> 
+      <h1 class = "black-text center" style = "font-size:90px;">Quick Quiz</h1>
+    </br></br>
+  </br></br>
+  <div class = "row">
+    <div class = "col s6 offset-s3">
+    <a class="waves-effect waves-light black btn" href="{% url 'login' %}" style ="width: 100%;">Log In As A Student</a>
+  </br></br></br></br>
+    <a class="waves-effect waves-light black btn" href="/admin"  style ="width: 100%;">Log In As A Teacher</a>
+  </div>
+</div>
+  </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock content %}
+      

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Log in{% endblock %}
+{% block content %}
+<div class = "container">
+    <h1 style = "text-align: center; font-size:20px;">Log in</h1>
+    <div class = "s10 m6 l6">
+      <form method = "post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type = "submit" class="waves-effect waves-light black btn">Log in</button>
+      </form>
+      <p>You don't have an account? <a href = "{% url 'signup' %}">Sign up</a></p>
+    </div>
+</div>
+
+{% endblock content %}

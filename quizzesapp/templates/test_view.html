@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block title %}Test{% endblock title %}
+{% block content %}
+<div class = "container">
+  <table>
+    <tr>
+      <th>Previous Tests</th>
+      <th>Score</th>
+    </tr>
+    {% for score in previous_tests %}
+    <tr>
+    <td>{{ score.0 }} </td>
+  <td>{{ score.1 }}</td>
+    {% endfor %}
+    </tr>
+  </table>
+</div>
+</br>
+  
+    {{ text }}
+    <h1 style = "text-align: center; font-size:70px;">{{ test_subject }}</h1>
+
+        <div><h3 style = "text-align: center;">Time Remaining <span id="time">02:00</span> minutes!</h3></div>
+      <form action = "{% url 'score' %}" method = "post" name = "test_form">
+        {% csrf_token %}
+        <div style = "text-align: left;">
+        {% for question in questions %}
+        <div class = "container">
+        {{question.0}}
+        </br>
+        </br>
+      <label class="blue-text text-darken-2">
+      <input type = "radio" name = "{{ forloop.counter0 }}" style = "text-align: left;" value = "0">
+      <span>{{ question.1 }}</span>
+    </label>
+    </br>
+    </br>
+    <label class="blue-text text-darken-2">
+      <input type = "radio" name = "{{ forloop.counter0 }}" style = "text-align: left;" value = "1">
+      <span>{{ question.2 }}</span>
+      </label>
+      </br>
+      </br>
+      <label class="blue-text text-darken-2">
+      <input type = "radio" name = "{{ forloop.counter0 }}" value = "2">
+      <span>{{ question.3 }}</span>
+      </label>
+      </br>
+      </br>
+      <label class="blue-text text-darken-2">
+      <input type = "radio" name = "{{ forloop.counter0 }}" value = "3">
+        <span>{{ question.4 }}</span>
+      </label>
+      </br>
+      </br>
+    </div>
+  </div>
+    {% endfor %}
+  </br></br>
+  <div class = "container">
+  <div class = "row">
+    <div class = "s4 offset-s3">
+    <button type = "submit" id = "submit_button" class="waves-effect waves-light center black btn" style="width:40%">Submit     </button>
+  </br></br></br>
+  <div>
+</div>
+</div>
+  </form>
+<script>
+  function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+          document.test_form.submit();
+        }
+    }, 1000);
+}
+
+window.onload = function () {
+    var fiveMinutes = 60 * 2,
+        display = document.querySelector('#time');
+    startTimer(fiveMinutes, display);
+};
+</script>
+{% endblock content %}
+        
